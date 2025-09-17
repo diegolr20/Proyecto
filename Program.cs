@@ -1,0 +1,74 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Proyecto1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("\n=== Sistema de facturación ===");
+            //Asignamos variables
+            double ayuda, descuento, precioFinal, IGV, muestraDesc;
+
+            // Solicitar nombre del producto
+            Console.Write("Ingrese el nombre del producto: ");
+            string nombreProducto = Console.ReadLine();
+
+            // Solicitar precio base
+            Console.Write("Ingrese el precio base: ");
+            double precioBase = Convert.ToDouble(Console.ReadLine());
+
+            // Solicitar tipo de cliente
+            Console.WriteLine("Seleccione el tipo de cliente:");
+            Console.WriteLine("1 = Frecuente");
+            Console.WriteLine("2 = Nuevo");
+            Console.WriteLine("3 = Corporativo");
+            int tipoCliente = Convert.ToInt32(Console.ReadLine());
+
+            //Abrimos un switch y colocamos los casos posibles
+            switch (tipoCliente)
+            {
+                case 1:
+                    muestraDesc = 10;
+                    descuento = precioBase * (muestraDesc / 100);
+                    ayuda = precioBase - descuento;
+                    break;
+                //Luego copiamos todo el bloque al resto de casos, cambiando el valor de muestraDesc
+                case 2:
+                    muestraDesc = 0;
+                    descuento = precioBase * (muestraDesc / 100);
+                    ayuda = precioBase - descuento;
+                    break;
+                case 3:
+                    muestraDesc = 15;
+                    descuento = precioBase * (muestraDesc / 100);
+                    ayuda = precioBase - descuento;
+                    break;
+                default:
+                    Console.WriteLine("ERROR, el cliente ingresado NO es válido");
+                    Console.ReadKey();
+                    return;
+            }
+
+            //Calculamos el IGV
+            IGV = ayuda * 0.18;
+
+            //Por último, el precio final
+            precioFinal = ayuda + IGV;
+
+            // Mostrar Resumen de compra
+            Console.WriteLine("\n=== Resumen de compra ===");
+            Console.WriteLine($"Producto: {nombreProducto}");
+            Console.WriteLine($"Precio Base: {precioBase:C}"); // Formato moneda
+            Console.WriteLine("Descuento aplicado: " + muestraDesc + "%");
+            Console.WriteLine($"Precio con descuento: {ayuda:C}");
+            Console.WriteLine($"IGV (18%): {IGV:C}");
+            Console.WriteLine($"Precio final a pagar: {precioFinal:C}");
+            Console.ReadKey();
+        }
+    }
+}
